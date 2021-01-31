@@ -63,6 +63,7 @@ public class CameraFollow : MonoBehaviour
         //If difference is smaller
         else {
             mouseCalcY = mousePosition.y - playerPos.position.y;
+
         }
         
         //mousePosition = sceneCamera.ScreenToWorldPoint(Input.mousePosition);
