@@ -33,18 +33,25 @@ public class CameraFollow : MonoBehaviour
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 1;
 
-
-        if(mousePosition.x - playerPos.position.x < -offsetX)
+        //Checking X values
+        //If difference between is smaller than allowed X offset in both directions
+        //If difference is bigger
+        if (mousePosition.x - playerPos.position.x < -offsetX)
         {
             mouseCalc = -offsetX;
         }else if(mousePosition.x  - playerPos.position.x > offsetX)
         {
             mouseCalc = offsetX;
         }
+        //If difference is smaller
         else
         {
             mouseCalc = mousePosition.x - playerPos.position.x;
         }
+
+        //Checking Y values
+        //If difference between is smaller than allowed Y offset in both directions
+        //If difference is bigger
         if (mousePosition.y - playerPos.position.y < -offsetY)
         {
             mouseCalcY = -offsetY;
@@ -53,6 +60,7 @@ public class CameraFollow : MonoBehaviour
         {
             mouseCalcY = offsetY;
         }
+        //If difference is smaller
         else {
             mouseCalcY = mousePosition.y - playerPos.position.y;
         }
@@ -61,7 +69,7 @@ public class CameraFollow : MonoBehaviour
 
         transform.position = new Vector3(playerPos.position.x + mouseCalc/4, playerPos.position.y + mouseCalcY/4, transform.position.z);
 
-        Debug.Log(mouseCalc);
+        //Debug.Log(mouseCalc);
         //Debug.Log(mouseCalcY);
 
 
