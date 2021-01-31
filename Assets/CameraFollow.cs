@@ -23,11 +23,10 @@ public class CameraFollow : MonoBehaviour
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 1;
-        //mousePosition = sceneCamera.ScreenToWorldPoint(Input.mousePosition);
         
         transform.position = new Vector3(playerPos.position.x + (mousePosition.x/4), playerPos.position.y + (mousePosition.y / 4), transform.position.z);
 
-        Debug.Log(mousePosition.x / 4);
+   
 
 
     }
