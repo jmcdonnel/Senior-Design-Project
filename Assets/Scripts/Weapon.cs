@@ -8,9 +8,9 @@ public class Weapon : MonoBehaviour
 
     public Transform firePoint;
 
-    public Camera sceneCamera;
+    private Camera sceneCamera ;
 
-    public Transform playerPos;
+    private Transform playerPos;
 
     public float fireForce;
 
@@ -23,6 +23,7 @@ public class Weapon : MonoBehaviour
     {
         // if the sword is child object, this is the transform of the character (or shoulder)
         playerPos = transform.parent.transform;
+        sceneCamera = (Camera)GameObject.FindObjectOfType(typeof(Camera));
     }
     private void FixedUpdate()
     {
@@ -31,13 +32,13 @@ public class Weapon : MonoBehaviour
     private void Update()
     {
         // Get the direction between the shoulder and mouse (aka the target position)
-        Vector3 playerToMouseDir =
-            Camera.main.ScreenToWorldPoint(Input.mousePosition) - playerPos.position;
+        Vector3 playerToMouseDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - playerPos.position;
         playerToMouseDir.z = 0; // zero z axis since we are using 2d
                                 // we normalize the new direction so you can make it the arm's length
                                 // then we add it to the shoulder's position
         transform.position = playerPos.position + (armLength * playerToMouseDir.normalized);
         mousePosition = sceneCamera.ScreenToWorldPoint(Input.mousePosition);
+
     }
     public void Fire()
     {

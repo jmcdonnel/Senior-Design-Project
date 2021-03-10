@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour
     public Camera sceneCamera;
 
     private Transform playerPos;
-    private Vector3 playerPosition;
+   // private Vector3 playerPosition;
     private Vector3 mousePosition;
     private Vector3 tmp;
     private float mouseCalcX;
@@ -20,7 +20,7 @@ public class CameraFollow : MonoBehaviour
     {
 
         playerPos = GameObject.FindGameObjectWithTag("Player").transform;
-        playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+       // playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
 
     }
 

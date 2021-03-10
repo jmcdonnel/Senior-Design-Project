@@ -6,6 +6,13 @@ TagManager:
   tags:
   - Wall
   - Enemy
+  - Weapon on ground
+  - Equipped Ranged Weapon
+  - Equipped Melee Weapon
+  - Main Hand
+  - Off Hand
+  - SpawnPoint
+  - Rooms
   layers:
   - Default
   - TransparentFX

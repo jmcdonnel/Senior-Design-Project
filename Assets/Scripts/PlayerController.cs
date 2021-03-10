@@ -11,7 +11,9 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody2D rb;
 
-    public Weapon weapon;
+    private Weapon weapon;
+
+    public GameObject currWeapon;
 
     private Vector2 moveDirection;
 
@@ -97,7 +99,7 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetMouseButtonDown(0))
+        if (PickUpController.getEquipped() == true && Input.GetMouseButtonDown(0))
         {
             weapon.Fire();
         }
@@ -112,8 +114,12 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
 
         
-  
+    }
 
+    public void setCurrentWeapon()
+    {
+        currWeapon = GameObject.FindGameObjectWithTag("Equipped Ranged Weapon");
+        weapon = currWeapon.GetComponent<Weapon>();
     }
 
     //                         O7
