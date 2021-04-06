@@ -100,7 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 8607270854993169055, guid: 184102df83218f64fa964bec5f26508b, type: 3}
   firePoint: {fileID: 3329322571888757696}
-  fireForce: 15
+  playerLoc: {fileID: 0}
+  fireForce: 10
   rb: {fileID: 8858344434488751048}
   armLength: 0.3
 --- !u!50 &8858344434488751048
@@ -140,6 +141,7 @@ MonoBehaviour:
   rb: {fileID: 8858344434488751048}
   offHand: {fileID: 0}
   playerLoc: {fileID: 0}
+  currEquippedWeapon: {fileID: 0}
   pickUpRange: 1.5
 --- !u!1 &7601507037059614802
 GameObject:

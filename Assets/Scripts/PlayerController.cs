@@ -21,6 +21,10 @@ public class PlayerController : MonoBehaviour
 
     public SpriteRenderer spriteRenderer;
 
+    public float movementSpeedMult;
+
+    public float fireForceMult;
+
     public Sprite newSprite;
 
     [SerializeField] private Sprite[] index;
@@ -39,6 +43,8 @@ public class PlayerController : MonoBehaviour
         playerPos = GameObject.FindGameObjectWithTag("Player").transform;
         playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
         animator = GetComponent<Animator>();
+        movementSpeedMult = 1;
+        fireForceMult = 1;
     }
 
     // Update is called once per frame
@@ -111,17 +117,41 @@ public class PlayerController : MonoBehaviour
     }
     private void Move()
     {
-        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+        rb.velocity = new Vector2(moveDirection.x * moveSpeed * movementSpeedMult, moveDirection.y * moveSpeed * movementSpeedMult);
 
         
     }
 
     public void setCurrentWeapon()
     {
-        currWeapon = GameObject.FindGameObjectWithTag("Equipped Ranged Weapon");
-        weapon = currWeapon.GetComponent<Weapon>();
+        if (GameObject.FindWithTag("Equipped Ranged Weapon") != null)
+        {
+            currWeapon = GameObject.FindGameObjectWithTag("Equipped Ranged Weapon");
+            weapon = currWeapon.GetComponent<Weapon>();
+
+        }
+        else { 
+
+
+            currWeapon = null;
+            weapon = null;
+            }
+
     }
 
+    public void increasePlayerSpeed(float n)
+    {
+        movementSpeedMult += n;
+    }
+    public void increaseProjectileSpeed(float n)
+    {
+        fireForceMult += n;
+    }
+
+    public float getFireForceMult()
+    {
+        return fireForceMult;
+    }
     //                         O7
     //private float pythagoreanTheorem(float x, float y)
 

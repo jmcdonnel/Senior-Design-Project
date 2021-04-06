@@ -12,6 +12,10 @@ public class Weapon : MonoBehaviour
 
     private Transform playerPos;
 
+    public GameObject playerLoc;
+
+    private PlayerController _playerController;
+
     public float fireForce;
 
     public Rigidbody2D rb;
@@ -24,6 +28,9 @@ public class Weapon : MonoBehaviour
         // if the sword is child object, this is the transform of the character (or shoulder)
         playerPos = transform.parent.transform;
         sceneCamera = (Camera)GameObject.FindObjectOfType(typeof(Camera));
+        playerLoc = GameObject.FindGameObjectWithTag("Player"); ;
+        _playerController = playerLoc.GetComponent<PlayerController>();
+
     }
     private void FixedUpdate()
     {
@@ -43,7 +50,7 @@ public class Weapon : MonoBehaviour
     public void Fire()
     {
         GameObject projectile = Instantiate(Projectile, firePoint.position, firePoint.rotation);
-        projectile.GetComponent<Rigidbody2D>().AddForce(firePoint.up * fireForce, ForceMode2D.Impulse);
+        projectile.GetComponent<Rigidbody2D>().AddForce(firePoint.up * (fireForce + _playerController.getFireForceMult()), ForceMode2D.Impulse);
 
     }
 
@@ -53,4 +60,6 @@ public class Weapon : MonoBehaviour
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = aimAngle;
     }
+
+
 }

@@ -19,7 +19,7 @@ public class RoomGenerator : MonoBehaviour
     void Start()
     {
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
-        Invoke("Spawn", 0.8f);
+        Invoke("Spawn", 0.1f);
     }
 
     void Spawn()
@@ -58,7 +58,12 @@ public class RoomGenerator : MonoBehaviour
     {
         if(other.CompareTag("SpawnPoint"))
         {
-            Destroy(gameObject);
+            if(other.GetComponent<RoomGenerator>().started == false && started == false) //spawn walls blocking off any openings
+            {
+                //Instantiate(templates.closedRoom, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }
+            started = true;
         }
     }
 

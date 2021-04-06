@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7824088378935117179}
   m_Layer: 0
   m_Name: Football
-  m_TagString: Equipped Ranged Weapon
+  m_TagString: Weapon on ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3149893551823235797}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0543, y: -0.0014, z: -1}
-  m_LocalScale: {x: 0.8454759, y: 0.7225363, z: 0.6923727}
+  m_LocalPosition: {x: -8.2895, y: 1.0013, z: -1}
+  m_LocalScale: {x: 6.2076235, y: 5.3049803, z: 5.0835137}
   m_Children:
   - {fileID: 3149893553362946381}
   m_Father: {fileID: 0}
@@ -100,7 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 4354781839727991909, guid: c9ba3500dd33a5542a74981276921df6, type: 3}
   firePoint: {fileID: 3149893553362946381}
-  fireForce: 20
+  playerLoc: {fileID: 0}
+  fireForce: 10
   rb: {fileID: 3149893551823235803}
   armLength: 0.3
 --- !u!50 &3149893551823235803
@@ -140,6 +141,7 @@ MonoBehaviour:
   rb: {fileID: 3149893551823235803}
   offHand: {fileID: 0}
   playerLoc: {fileID: 0}
+  currEquippedWeapon: {fileID: 0}
   pickUpRange: 1.5
 --- !u!1 &3149893553362946380
 GameObject:

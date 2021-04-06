@@ -13,10 +13,9 @@ public class EnemyMovement : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
-
+ 
     void Awake ()
     {
-
         player = GameObject.FindGameObjectWithTag ("Player").transform;
         // playerHealth = player.GetComponent <PlayerHealth> ();
         // enemyHealth = GetComponent <EnemyHealth> ();
@@ -26,7 +25,7 @@ public class EnemyMovement : MonoBehaviour
 
     void Update ()
     {
-        // if(enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
+        // if(playerHealth.currentHealth < 0) // enemyHealth.currentHealth > 0 && 
         // {
             nav.SetDestination (player.position);
         // }

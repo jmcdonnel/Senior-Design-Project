@@ -10,13 +10,16 @@ public class PickUpController : MonoBehaviour
     private Transform player;
     public GameObject playerLoc;
     private PlayerController _playerController;
+    public GameObject currEquippedWeapon;
+    private PickUpController weapon;
+    private static float timeStamp;
 
 
     public float pickUpRange;
 
 
 
-    private static bool equipped;
+    private bool equipped;
     public static bool slotFull;
 
     private void Start()
@@ -39,17 +42,27 @@ public class PickUpController : MonoBehaviour
 
     private void Update()
     {
+        
         //Check if player is in range and "E" is pressed
         Vector3 distanceToPlayer = player.position - transform.position;
-        if (!equipped && distanceToPlayer.magnitude <= pickUpRange && Input.GetKeyDown(KeyCode.E) && !slotFull) PickUp();
-        else if (equipped && distanceToPlayer.magnitude <= pickUpRange && Input.GetKeyDown(KeyCode.E) && !slotFull) Swap();
+        if (!equipped && distanceToPlayer.magnitude <= pickUpRange && Input.GetKeyDown(KeyCode.E) && !slotFull)
+        {
+            PickUp();
+            equipped = true;
+            slotFull = true;
+        }
+        else if (!equipped && timeStamp <= Time.time && distanceToPlayer.magnitude <= pickUpRange && Input.GetKeyUp(KeyCode.E) && slotFull)
+        {
+            Swap();
+            equipped = true;
+            slotFull = true;
+        }
+        //Debug.Log(gameObject + "   " +  equipped);
 
     }
 
     private void PickUp()
     {
-        equipped = true;
-        slotFull = true;
 
         //Make weapon a child of the camera and move it to default position
         transform.SetParent(offHand);
@@ -67,20 +80,32 @@ public class PickUpController : MonoBehaviour
     private void Drop()
     {
         equipped = false;
-        slotFull = false;
 
         //Set parent to null
         transform.SetParent(null);
 
 
+
+        gameObject.tag = "Weapon on ground";
+
+
         //Disable script
         weaponScript.enabled = false;
+ 
     }
-    private void Swap() { 
+    private void Swap() {
+        timeStamp = Time.time + 1;
+
+        currEquippedWeapon = GameObject.FindWithTag("Equipped Ranged Weapon");
+        weapon = currEquippedWeapon.GetComponent<PickUpController>();
+
+        weapon.Drop();
+        PickUp();
+
     }
 
     public static bool getEquipped() {
-        return equipped;
+        return slotFull;
     }
 }
 

@@ -4,15 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Wall
-  - Enemy
-  - Weapon on ground
   - Equipped Ranged Weapon
-  - Equipped Melee Weapon
-  - Main Hand
-  - Off Hand
+  - Weapon on ground
+  - Wall
   - SpawnPoint
-  - Rooms
+  - Test
+  - Off Hand
+  - Main Hand
+  - Speed Powerup
+  - Text
   layers:
   - Default
   - TransparentFX
