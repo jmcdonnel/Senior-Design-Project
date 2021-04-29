@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+	GameObject player;
+    PlayerHealth playerHealth;
     public Camera sceneCamera;
 
     public float moveSpeed;
@@ -39,19 +43,35 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerHealth = player.GetComponent<PlayerHealth>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         playerPos = GameObject.FindGameObjectWithTag("Player").transform;
         playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-        animator = GetComponent<Animator>();
         movementSpeedMult = 1;
         fireForceMult = 1;
+        //animator.SetFloat("lastHorizontal", 0f);
+        //animator.SetFloat("lastVertical", 0f);
+        animator.SetFloat("IdleType", 0f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        float vertical = Input.GetAxis("Vertical");
-        animator.SetFloat("Vertical", vertical);
+        //Getting axis for animation purposes
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
+        /*
+        if (movement.magnitude > 0.001f)
+        {
+            animator.SetFloat("lastHorizontal", movement.x);
+            animator.SetFloat("lastVertical", movement.y);
+            //Debug.Log(movement.x);
+            //Debug.Log(movement.y);
+        }
+        */
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+        animator.SetFloat("Magnitude", movement.magnitude);
 
         ProcessInputs();
         {
@@ -63,34 +83,38 @@ public class PlayerController : MonoBehaviour
             //Mouse moved to first quadrant
             if(mousePosition.x - playerPos.position.x >= 0 && mousePosition.y - playerPos.position.y >= 0) 
             {
+                animator.SetFloat("IdleType", 2f);
                 //If player turned from second quadrant
-                if (_spriteRenderer.sprite == index[1]) _spriteRenderer.flipX = false;
+                //if (_spriteRenderer.sprite == index[1]) _spriteRenderer.flipX = false;
                 //If player turned from fourth quadrant
-                else if (_spriteRenderer.sprite == index[0]) _spriteRenderer.sprite = index[1];
+                //else if (_spriteRenderer.sprite == index[0]) _spriteRenderer.sprite = index[1];
             }
             //Mouse moved to second quadrant
             else if (mousePosition.x - playerPos.position.x < 0 && mousePosition.y - playerPos.position.y > 0)
             {
+                animator.SetFloat("IdleType", 3f);
                 //If player turned from first quadrant
-                if (_spriteRenderer.sprite == index[1]) _spriteRenderer.flipX = true;
+                //if (_spriteRenderer.sprite == index[1]) _spriteRenderer.flipX = true;
                 //If player turned from third quadrant
-                else if (_spriteRenderer.sprite == index[0]) _spriteRenderer.sprite = index[1];
+                //else if (_spriteRenderer.sprite == index[0]) _spriteRenderer.sprite = index[1];
             }
             //Mouse moved to third quadrant
             else if (mousePosition.x - playerPos.position.x < 0 && mousePosition.y - playerPos.position.y  < 0)
             {
+                animator.SetFloat("IdleType", 1f);
                 //If player turned from second quadrant
-                if (_spriteRenderer.sprite == index[1]) _spriteRenderer.sprite = index[0];
+                //if (_spriteRenderer.sprite == index[1]) _spriteRenderer.sprite = index[0];
                 //If player turned from fourth quadrant
-                else if (_spriteRenderer.sprite == index[0]) _spriteRenderer.flipX = true;
+                //else if (_spriteRenderer.sprite == index[0]) _spriteRenderer.flipX = true;
             }
             //Mouse moved to fourth quadrant
             else if (mousePosition.x - playerPos.position.x >= 0 && mousePosition.y - playerPos.position.y <= 0)
             {
+                animator.SetFloat("IdleType", 0f);
                 //If player turned from first quadrant
-                if (_spriteRenderer.sprite == index[1]) _spriteRenderer.sprite = index[0];
+                //if (_spriteRenderer.sprite == index[1]) _spriteRenderer.sprite = index[0];
                 //If player turned from third quadrant
-                else if (_spriteRenderer.sprite == index[0]) _spriteRenderer.flipX = false;
+                //else if (_spriteRenderer.sprite == index[0]) _spriteRenderer.flipX = false;
             }
         }
     }
@@ -154,5 +178,4 @@ public class PlayerController : MonoBehaviour
     }
     //                         O7
     //private float pythagoreanTheorem(float x, float y)
-
 }

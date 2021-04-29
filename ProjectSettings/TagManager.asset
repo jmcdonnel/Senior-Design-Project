@@ -13,11 +13,15 @@ TagManager:
   - Main Hand
   - Speed Powerup
   - Text
+  - Fastball Powerup
+  - Rooms
+  - Enemy
+  - EnemyProjectile
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemies
   - Water
   - UI
   - 

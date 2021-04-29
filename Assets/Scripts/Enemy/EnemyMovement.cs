@@ -17,21 +17,22 @@ public class EnemyMovement : MonoBehaviour
     void Awake ()
     {
         player = GameObject.FindGameObjectWithTag ("Player").transform;
-        // playerHealth = player.GetComponent <PlayerHealth> ();
-        // enemyHealth = GetComponent <EnemyHealth> ();
+        playerHealth = player.GetComponent <PlayerHealth> ();
+        enemyHealth = GetComponent <EnemyHealth> ();
         nav = GetComponent <UnityEngine.AI.NavMeshAgent> ();
     }
 
 
     void Update ()
     {
-        // if(playerHealth.currentHealth < 0) // enemyHealth.currentHealth > 0 && 
-        // {
+        Debug.Log(enemyHealth.currentHealth + "      " + playerHealth.currentHealth);
+        if(enemyHealth.currentHealth > 0 && playerHealth.currentHealth >  0) // enemyHealth.currentHealth > 0 && 
+        {
             nav.SetDestination (player.position);
-        // }
-        // else
-        // {
-        //     nav.enabled = false;
-        // }
+        }
+        else
+        {
+            nav.enabled = false;
+        }
     }
 }

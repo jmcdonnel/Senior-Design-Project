@@ -35,7 +35,7 @@ public class PowerUpPickUpController : MonoBehaviour
 
     private void PickUp()
     {
-        switch (gameObject.name)
+        switch (gameObject.tag)
         {
             case "Speed Powerup":
                 _playerController.increasePlayerSpeed(.2f);

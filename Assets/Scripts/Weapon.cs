@@ -27,7 +27,7 @@ public class Weapon : MonoBehaviour
     {
         // if the sword is child object, this is the transform of the character (or shoulder)
         playerPos = transform.parent.transform;
-        sceneCamera = (Camera)GameObject.FindObjectOfType(typeof(Camera));
+        sceneCamera = Camera.main;
         playerLoc = GameObject.FindGameObjectWithTag("Player"); ;
         _playerController = playerLoc.GetComponent<PlayerController>();
 

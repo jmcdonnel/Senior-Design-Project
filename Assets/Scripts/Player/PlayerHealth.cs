@@ -6,43 +6,56 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-//    public int startingHealth = 100;
-//    public int currentHealth;
-//    public Slider healthSlider;
-//    public Image damageImage;
-//    public AudioClip deathClip;
-//    public float flashSpeed = 5f;
-//    public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
+    //    public int startingHealth = 100;
+    //    public int currentHealth;
+    //    public Slider healthSlider;
+    //    public Image damageImage;
+    //    public AudioClip deathClip;
+    //    public float flashSpeed = 5f;
+    //    public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
 
 
-//    Animator anim;
-//    AudioSource playerAudio;
-//    PlayerMovement playerMovement;
-//    PlayerShooting playerShooting;
-//    bool isDead;
-//    bool damaged;
-public int maxHealth = 100;
-public int currentHealth;
-
-public HealthBar playerHealth;
-     void Start()
+    //    Animator anim;
+    //    AudioSource playerAudio;
+    //    PlayerMovement playerMovement;
+    //    PlayerShooting playerShooting;
+    //    bool isDead;
+    //    bool damaged;
+    public int maxHealth = 100;
+    public int currentHealth;
+    public float damageTimer = 0;
+    public HealthBar playerHealth;
+    void Start()
     {
         currentHealth = maxHealth;
         playerHealth.setMaxHealth(maxHealth);
     }
     private void Update()
     {
+        damageTimer += Time.deltaTime;
+        if (currentHealth <= 0)
+        {
+            SceneManager.LoadScene("MainMenuScene");
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             TakeDamage(20);
         }
     }
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        playerHealth.setHealth(currentHealth);
+        if (damageTimer > 1)
+        {
+            currentHealth -= damage;
+            playerHealth.setHealth(currentHealth);
+            if (currentHealth <= 0)
+            {
+                Debug.Log("Player died!");
+            }
+            damageTimer = 0;
+        }
     }
-    
+
     //    void Awake ()
     //    {
     //        anim = GetComponent <Animator> ();

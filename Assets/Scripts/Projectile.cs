@@ -6,6 +6,9 @@ public class Projectile : MonoBehaviour
 {
     public Rigidbody2D rb;
 
+    public GameObject enemy;
+    public int damage = 10;
+
     // Start is called before the first frame update
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,6 +18,8 @@ public class Projectile : MonoBehaviour
                 Destroy(gameObject);
                 break;
             case "Enemy":
+                EnemyHealth enemyHealth = collision.GetComponent <EnemyHealth> ();
+                enemyHealth.TakeDamage(damage);
                 Destroy(gameObject);
                 break;
         }
